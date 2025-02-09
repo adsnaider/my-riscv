@@ -1,0 +1,15 @@
+fn and(x: bool, y: bool) -> bool {
+    x && y
+}
+
+fn or(x: bool, y: bool) -> bool {
+    x || y
+}
+
+fn not(x: bool) -> bool {
+    !x
+}
+
+fn xor(x: bool, y: bool) -> bool {
+    x ^^ y
+}

@@ -1,3 +1,0 @@
-fn and_gate(x: bool, y: bool) -> bool {
-    x && y
-}

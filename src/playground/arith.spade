@@ -1,0 +1,50 @@
+struct AddOut {
+    sum: bool,
+    carry: bool,
+}
+
+fn half_adder(x: bool, y: bool) -> AddOut {
+    AddOut$ (
+        sum: x ^^ y,
+        carry: x && y,
+    )
+}
+
+
+fn full_adder(x: bool, y: bool, z: bool) -> AddOut {
+    let AddOut( sum0, carry0 ) = half_adder(x, y);
+    let AddOut( full_sum, carry1 ) = half_adder(sum0, z);
+
+    AddOut$ (
+        sum: full_sum,
+        carry: carry0 || carry1
+    )
+}
+
+fn adder4(x: [bool; 4], y: [bool; 4]) -> [bool; 5] {
+    /*
+    let ha0 = half_adder(x[0], y[0]);
+    let fa1 = full_adder(x[1], y[1], ha0.carry);
+    let fa2 = full_adder(x[2], y[2], fa1.carry);
+    let fa3 = full_adder(x[3], y[3], fa2.carry);
+
+    [
+        ha0.sum,
+        fa1.sum,
+        fa2.sum,
+        fa3.sum,
+        fa3.carry,
+    ]
+    */
+    std::conv::uint_to_bits(x.to_uint() + y.to_uint())
+}
+
+struct BitAddOut {
+    result: uint<4>,
+    overflow: bool,
+}
+
+fn adder4_overflow(x: uint<4>, y: uint<4>) -> BitAddOut {
+    let out = x + y;
+    BitAddOut(trunc(out), std::conv::uint_to_bits(out)[4])
+}
