@@ -1,0 +1,29 @@
+enum Operation {
+    Add,
+    Sub,
+    And,
+    Or,
+    Xor,
+    Sll,
+    Srl,
+    Sra,
+    Slt,
+    Sltu,
+    Xnor,
+}
+
+fn alu(x: int<32>, y: int<32>, op: Operation) -> int<32> {
+    match op {
+        Operation::Add => trunc(x + y),
+        Operation::Sub => trunc(x - y),
+        Operation::And => x & y,
+        Operation::Or => x | y,
+        Operation::Xor => x ^ y,
+        Operation::Sll => x << trunc(y),
+        Operation::Srl => x >> trunc(y),
+        Operation::Sra => x >>> trunc(y),
+        Operation::Slt => if (x < y) { 1 } else { 0 },
+        Operation::Sltu => if (x.to_uint() < y.to_uint()) { 1 } else { 0 },
+        Operation::Xnor => ~(x ^ y),
+    }
+}
